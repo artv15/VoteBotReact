@@ -29,7 +29,7 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     print('>>Sent message about voting of event. Name of event: ' + str(arg))
-channel = self.get_channel(payload.channel_id) # Получаем канал
+channel = 718792527230009374 # Получаем канал
 message = await channel.fetch_message(payload.message_id)  # Получаем сообщение
 author = message.author  # Получаем автора
 if author == bot:
