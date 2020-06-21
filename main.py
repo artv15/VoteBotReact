@@ -34,17 +34,22 @@ async def startvote(ctx, arg):
 #Конец startvote
 
 #Начало endvote
-@Bot.event
-async def on_raw_reaction_add(self, payload):
-    channel = Bot.get_channel(payload.channel_id)
-    msg = await channel.fetch_message(payload.message_id)
+channel = self.get_channel(payload.channel_id) # Получаем канал
+message = await channel.fetch_message(payload.message_id)  # Получаем сообщение
+author = message.author  # Получаем автора
+if author == bot:
     async def on_raw_reaction_add(self, payload):
-        Y = 0
-        N = 0
-        if payload == '✅':
+        emoji = payload.emoji
+        if emoji == '✅':
             Y += 1
-        elif payload == '❌':
+        elif emoji == '❌':
             N += 1
+    def on_raw_reaction_remove(self, payload):
+        emoji = payload.emoji # реакция пользователя
+        if emoji == '✅':
+            Y -= 1
+        elif emoji == '❌':
+            N -= 1
 if Y > N:
     Result = 'Принято'
 elif Y == N:
