@@ -17,7 +17,7 @@ async def on_ready():
 
 #Команда startvote
 @Bot.command(pass_context=True)
-@commands.has_permissions(administrator=False)
+@commands.has_permissions(administrator=True)
 async def startvote(ctx, arg):
     emb = discord.Embed(title=f'Начато голосование на ивент',
                         description='Ивент: ' + str(arg),
