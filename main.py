@@ -50,7 +50,7 @@ else:
     Resule = 'Отказано'
 @Bot.command(pass_context= True)
 @commands.has_permissions(administrator=True)
-async def endvote(ctx)
+async def endvote(ctx):
     emb = discord.Embed(title=f'Окончено голосование на ивент'
                         description='Результат: ' + Result
                         colour=discord.color.purple())
