@@ -31,11 +31,13 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     print('>>Sent message about voting of event. Name of event: ' + str(arg))
+#Конец startvote
+
+#Начало endvote
 @Bot.event
-async def on_raw_reaction_add(payload):
+async def on_raw_reaction_add(self, payload):
     channel = Bot.get_channel(payload.channel_id)
     msg = await channel.fetch_message(payload.message_id)
-    embed = msg.embeds[0]
     async def on_raw_reaction_add(self, payload):
         Y = 0
         N = 0
@@ -43,13 +45,10 @@ async def on_raw_reaction_add(payload):
             Y += 1
         elif payload == '❌':
             N += 1
-#Конец startvote
-
-#Начало endvote
 if Y > N:
     Result = 'Принято'
 elif Y == N:
-    Result = 'Отказано(одинаковое кол-во голосов)'
+    Result = 'Отказано(одинаковое кол-во голосов(Может быть ошибкой))'
 else:
     Resule = 'Отказано'
 @Bot.command(pass_context= True)
