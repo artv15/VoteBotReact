@@ -26,6 +26,7 @@ async def startvote(ctx, arg):
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
     await message.add_reaction('✅')
     await message.add_reaction('❌')
+    print('>>Sent message about voting of event. Name of event: ' + str(arg))
 #Конец startvote
 
 
