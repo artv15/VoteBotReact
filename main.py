@@ -10,6 +10,7 @@ global N
 Y = 0
 N = 0
 Result = 'Похоже на ошибку. МИША БЛЯТЬ ПОЧИНИ УЖЕ ЕБАНЫЙ КОД!!!'
+msgsent = ''
 #Объявления префикса
 Bot = commands.Bot(command_prefix= '!')
 #Префикс объявлен
@@ -31,30 +32,30 @@ async def startvote(ctx, arg):
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
     await message.add_reaction('✅')
     await message.add_reaction('❌')
+    msgsent = ctx
     print('>>Sent message about voting of event. Name of event: ' + str(arg))
 #Конец startvote
 
 #Начало endvote
-channel = Bot.get_channel(payload.channel_id) # Получаем канал
-message = await channel.fetch_message(payload.message_id)  # Получаем сообщение
-author = message.author  # Получаем автора
-if author == Bot:
-    async def on_raw_reaction_add(self, payload):
-        emoji = payload.emoji
-        if emoji == '✅':
-            global Y
-            Y += 1
-        elif emoji == '❌':
-            global N
-            N += 1
-    def on_raw_reaction_remove(self, payload):
-        emoji = payload.emoji # реакция пользователя
-        if emoji == '✅':
-            global Y
-            Y -= 1
-        elif emoji == '❌':
-            global N
-            N -= 1
+@Bot.event
+async def on_raw_reaction_add(self, payload):
+    channel = Bot.get_channel(payload.channel_id) # получаем объект канала
+    message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
+    emoji = payload.emoji
+    if emoji == '✅':
+        global Y
+        Y += 1
+    elif emoji == '❌':
+        global N
+        N += 1
+def on_raw_reaction_remove(self, payload):
+    emoji = payload.emoji # реакция пользователя
+    if emoji == '✅':
+        global Y
+        Y -= 1
+    elif emoji == '❌':
+        global N
+        N -= 1
 if Y > N:
     Result = 'Принято'
 elif Y == N:
