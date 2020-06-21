@@ -1,8 +1,7 @@
 #Зона import
 import discord
-from discord import utils
-import discord.ext
 from discord.ext import commands
+from discord.ext.commands import Bot
 import config
 #Конец зоны import
 
@@ -14,24 +13,23 @@ Bot = commands.Bot(command_prefix= '!')
 @Bot.event
 async def on_ready():
     print('>>Bot started.')
-#Конец вывода об активности
-
-#Комманда ping
-@Bot.command(pass_context= True)
-async def ping(ctx):
-    await Bot.say('Pong!')
-#Конец ping
+#Сепаратор------------------------------------------
 
 #Команда startvote
-@bot.command(pass_context=True)
+@Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def startvote(ctx, arg):
-    emb = discord.Embed(title=f + str(arg),
-                        description='Госование начато',
+    emb = discord.Embed(title=f'Начато голосование на ивент',
+                        description='Ивент: ' + str(arg),
                         colour=discord.Color.purple())
 
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
     await message.add_reaction('✅')
     await message.add_reaction('❌')
+    await message.add_reaction('⏭️')
 #Конец startvote
+
+
+
+
 Bot.run(config.TOKEN)
