@@ -51,9 +51,7 @@ else:
 @Bot.command(pass_context= True)
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
-    emb = discord.Embed(title=f'Окончено голосование на ивент'
-                        description='Результат: ' + Result
-                        colour=discord.color.purple())
+    emb = discord.Embed(title=f'Окончено голосование на ивент', description = 'Результат: ' + str(Result), colour=discord.color.purple())
 Y = 0
 N = 0
 Result = 'МИША БЛЯТЬ, ПОЧИНИ УЖЕ КОД ЕБАНЫЙ'
