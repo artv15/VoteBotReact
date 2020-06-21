@@ -59,7 +59,6 @@ async def endvote(ctx):
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
 Y = 0
 N = 0
-Result = 'МИША БЛЯТЬ, ПОЧИНИ УЖЕ КОД ЕБАНЫЙ'
 #Конец endvote
 
 
