@@ -35,11 +35,10 @@ async def on_raw_reaction_add(payload):
     msg = await channel.fetch_message(payload.message_id)
     embed = msg.embeds[0]
     async def on_raw_reaction_add(self, payload):
-    emoji = payload.emoji # реакция пользователя
-    if emoji == '✅':
-        Y += 1
-    if emoji == '❌':
-        N += 1
+        if payload == '✅':
+            Y += 1
+        elif payload == '❌':
+            N += 1
 #Конец startvote
 
 #Начало endvote
