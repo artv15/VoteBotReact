@@ -4,6 +4,8 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import config
 #Конец зоны import
+global Y
+global N
 Y = 0
 N = 0
 Result = 'Похоже на ошибку. МИША БЛЯТЬ ПОЧИНИ УЖЕ ЕБАНЫЙ КОД!!!'
@@ -29,12 +31,14 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     print('>>Sent message about voting of event. Name of event: ' + str(arg))
-@bot.event
+@Bot.event
 async def on_raw_reaction_add(payload):
-    channel = bot.get_channel(payload.channel_id)
+    channel = Bot.get_channel(payload.channel_id)
     msg = await channel.fetch_message(payload.message_id)
     embed = msg.embeds[0]
     async def on_raw_reaction_add(self, payload):
+        Y = 0
+        N = 0
         if payload == '✅':
             Y += 1
         elif payload == '❌':
@@ -51,11 +55,12 @@ else:
 @Bot.command(pass_context= True)
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
-    emb = discord.Embed(title=f'Окончено голосование на ивент', description = 'Результат: ' + str(Result), colour=discord.color.purple())
+    emb = discord.Embed(title=f'Окончено голосование на ивент', description = 'Результат: ' + str(Result), colour=discord.Color.purple())
+    message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
 Y = 0
 N = 0
 Result = 'МИША БЛЯТЬ, ПОЧИНИ УЖЕ КОД ЕБАНЫЙ'
-
+#Конец endvote
 
 
 Bot.run(config.TOKEN)
