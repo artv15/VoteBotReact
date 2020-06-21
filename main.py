@@ -29,10 +29,11 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     print('>>Sent message about voting of event. Name of event: ' + str(arg))
-channel = 718792527230009374 # Получаем канал
-message = await channel.fetch_message(payload.message_id)  # Получаем сообщение
-author = message.author  # Получаем автора
-if author == bot:
+@bot.event
+async def on_raw_reaction_add(payload):
+    channel = bot.get_channel(payload.channel_id)
+    msg = await channel.fetch_message(payload.message_id)
+    embed = msg.embeds[0]
     async def on_raw_reaction_add(self, payload):
     emoji = payload.emoji # реакция пользователя
     if emoji == '✅':
@@ -54,6 +55,9 @@ async def endvote(ctx)
     emb = discord.Embed(title=f'Окончено голосование на ивент'
                         description='Результат: ' + Result
                         colour=discord.color.purple())
+Y = 0
+N = 0
+Result = 'МИША БЛЯТЬ, ПОЧИНИ УЖЕ КОД ЕБАНЫЙ'
 
 
 
