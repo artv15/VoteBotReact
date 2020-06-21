@@ -1,5 +1,6 @@
 #Зона import
 import discord
+from discord import utils
 from discord.ext import commands
 from discord.ext.commands import Bot
 import config
@@ -34,21 +35,25 @@ async def startvote(ctx, arg):
 #Конец startvote
 
 #Начало endvote
-channel = self.get_channel(payload.channel_id) # Получаем канал
+channel = Bot.get_channel(payload.channel_id) # Получаем канал
 message = await channel.fetch_message(payload.message_id)  # Получаем сообщение
 author = message.author  # Получаем автора
-if author == bot:
+if author == Bot:
     async def on_raw_reaction_add(self, payload):
         emoji = payload.emoji
         if emoji == '✅':
+            global Y
             Y += 1
         elif emoji == '❌':
+            global N
             N += 1
     def on_raw_reaction_remove(self, payload):
         emoji = payload.emoji # реакция пользователя
         if emoji == '✅':
+            global Y
             Y -= 1
         elif emoji == '❌':
+            global N
             N -= 1
 if Y > N:
     Result = 'Принято'
