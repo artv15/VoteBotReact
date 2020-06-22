@@ -33,7 +33,7 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     msgsent = ctx
-    print('>>Sent message about voting of event. Name of event: ' + str(arg))
+    print('>>Sent message about voting. Voting for: ' + str(arg))
 #Конец startvote
 
 #Начало endvote
@@ -63,13 +63,13 @@ async def on_raw_reaction_remove(self, payload):
 if Y > N:
     Result = 'Принято'
 elif Y == N:
-    Result = 'Отказано(одинаковое кол-во голосов(Может быть ошибкой))'
+    Result = 'Отказано(Да = Нет)'
 else:
     Resule = 'Отказано'
 @Bot.command(pass_context= True)
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
-    emb = discord.Embed(title=f'Окончено голосование на ивент', description = 'Результат: ' + str(Result), colour=discord.Color.purple())
+    emb = discord.Embed(title=f'Окончено голосование.', description = 'Результат: ' + str(Result), colour=discord.Color.purple())
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
 Y = 0
 N = 0
