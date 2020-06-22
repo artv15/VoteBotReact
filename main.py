@@ -25,8 +25,8 @@ async def on_ready():
 @Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def startvote(ctx, arg):
-    emb = discord.Embed(title=f'Начато голосование на ивент',
-                        description='Ивент: ' + str(arg),
+    emb = discord.Embed(title=f'Начато голосование',
+                        description='Голосуем за: ' + str(arg),
                         colour=discord.Color.purple())
 
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
