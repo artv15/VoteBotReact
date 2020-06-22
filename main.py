@@ -41,21 +41,25 @@ async def startvote(ctx, arg):
 async def on_raw_reaction_add(self, payload):
     channel = Bot.get_channel(payload.channel_id) # получаем объект канала
     message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
-    emoji = payload.emoji
-    if emoji == '✅':
-        global Y
-        Y += 1
-    elif emoji == '❌':
-        global N
-        N += 1
-def on_raw_reaction_remove(self, payload):
-    emoji = payload.emoji # реакция пользователя
-    if emoji == '✅':
-        global Y
-        Y -= 1
-    elif emoji == '❌':
-        global N
-        N -= 1
+    for emoji in message:
+        emoji = payload.emoji
+        if emoji == '✅':
+            global Y
+            Y += 1
+        elif emoji == '❌':
+            global N
+            N += 1
+async def on_raw_reaction_remove(self, payload):
+    channel = Bot.get_channel(payload.channel_id) # получаем объект канала
+    message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
+    for emoji in message:
+        emoji = payload.emoji # реакция пользователя
+        if emoji == '✅':
+            global Y
+            Y -= 1
+        elif emoji == '❌':
+            global N
+            N -= 1
 if Y > N:
     Result = 'Принято'
 elif Y == N:
