@@ -37,6 +37,8 @@ async def startvote(ctx, arg):
 #Конец startvote
 
 #Начало endvote
+global n
+global y
 n = 0
 y = 0
 result = "?"
@@ -52,7 +54,7 @@ async def on_raw_reaction_add(payload):  # №2
         elif emoji == "\N{CROSS MARK}":
             n += 1
 
-@Bot.event()  # № 1
+@Bot.event  # № 1
 async def on_raw_reaction_remove(payload):  # №2
     channel = Bot.get_channel(payload.channel_id) # получаем объект канала
     message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
