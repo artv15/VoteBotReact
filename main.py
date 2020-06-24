@@ -65,7 +65,7 @@ async def on_raw_reaction_remove(payload):  # №2
         elif emoji == "\N{CROSS MARK}":
             n -= 1
 
-@Bot.command()  # № 4
+@Bot.command  # № 4
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
     if y > n:
