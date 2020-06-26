@@ -4,12 +4,13 @@ from discord import utils
 from discord.ext import commands
 from discord.ext.commands import Bot
 import config
+import time
 #Конец зоны import
-global Y
-global N
-Y = 0
-N = 0
-Result = 'Похоже на ошибку. МИША БЛЯТЬ ПОЧИНИ УЖЕ ЕБАНЫЙ КОД!!!'
+global n
+global y
+n = 0
+y = 0
+result = "?"
 msgsent = ''
 #Объявления префикса
 Bot = commands.Bot(command_prefix= '!')
@@ -18,11 +19,11 @@ Bot = commands.Bot(command_prefix= '!')
 #Вывод объявления об активности
 @Bot.event
 async def on_ready():
-    print('>>Bot started.')
+    print('>>Bot started. Обычно, ты на этом радуешься)')
 #Сепаратор------------------------------------------
 
 #Команда startvote
-@Bot.command(pass_context=True)
+@Bot.command()
 @commands.has_permissions(administrator=True)
 async def startvote(ctx, arg):
     emb = discord.Embed(title=f'Начато голосование',
@@ -32,52 +33,52 @@ async def startvote(ctx, arg):
     message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
     await message.add_reaction('✅')
     await message.add_reaction('❌')
-    msgsent = ctx
     print('>>Sent message about voting. Voting for: ' + str(arg))
+
+    @Bot.event
+    async def on_raw_reaction_add(payload):  # №2
+        channel = Bot.get_channel(payload.channel_id) # получаем объект канала
+        message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
+        for emoji in message:
+            emoji = payload.emoji
+            if emoji == "\N{WHITE HEAVY CHECK MARK}":
+                y += 1
+            elif emoji == "\N{CROSS MARK}":
+                n += 1
+        return()
+
+    @Bot.event  # № 1
+    async def on_raw_reaction_remove(payload):  # №2
+        channel = Bot.get_channel(payload.channel_id) # получаем объект канала
+        message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
+        for emoji in message:
+            emoji = payload.emoji # реакция пользователя
+            if emoji == "\N{WHITE HEAVY CHECK MARK}":
+                y -= 1
+            elif emoji == "\N{CROSS MARK}":
+                n -= 1
+        return()
 #Конец startvote
 
 #Начало endvote
-global n
-global y
-n = 0
-y = 0
-result = "?"
-
-@Bot.event
-async def on_raw_reaction_add(payload):  # №2
-    channel = Bot.get_channel(payload.channel_id) # получаем объект канала
-    message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
-    for emoji in message:
-        emoji = payload.emoji
-        if emoji == "\N{WHITE HEAVY CHECK MARK}":
-            y += 1
-        elif emoji == "\N{CROSS MARK}":
-            n += 1
-
-@Bot.event  # № 1
-async def on_raw_reaction_remove(payload):  # №2
-    channel = Bot.get_channel(payload.channel_id) # получаем объект канала
-    message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
-    for emoji in message:
-        emoji = payload.emoji # реакция пользователя
-        if emoji == "\N{WHITE HEAVY CHECK MARK}":
-            y -= 1
-        elif emoji == "\N{CROSS MARK}":
-            n -= 1
-
 @Bot.command  # № 4
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
+    emb = discord.Embed(title=f'Выполняется комманда !endvote', description= 'До подсчёта: 10 секунд', colour=discord.Color.purple())
     if y > n:
-        result = 'Принято'  # № 5
+        result = 'Принято'  # Voting_ACCEPTED
     elif y == n:
-        result = 'Отказано (Да = Нет)'  # № 5
+        result = 'Отказано (Да = Нет)'  # Voting_REFUSED (y=n)
     else:
-        result = 'Отказано'  # № 5
+        result = 'Отказано'  # Voting_REFUSED
     emb = discord.Embed(title=f'Окончено голосование.', description = 'Результат: ' + result, colour=discord.Color.purple())
     return await ctx.send(embed=emb) # **Возвращаем** сообщение после отправки.
     y, n = 0, 0
 #Конец endvote
 
-
+#Команда debug
+@Bot.command
+async def debug(ctx):
+    emb = discord.Embed(title=f'Окно debug.', description='Список переменных дебага:', Y = y)
+    return await ctx.send(embed=emb) # **Возвращаем** сообщение после отправки.
 Bot.run(config.TOKEN)
