@@ -97,5 +97,6 @@ async def endeventvote(ctx):
         result += reaction.emoji + ": " + str(reaction.count - 1)
     emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
                                   colour=discord.Color.purple())
+    await ctx.send(embed=emb)
 #Конец группы vote_event_commands
 Bot.run(config.TOKEN)
