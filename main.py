@@ -70,6 +70,32 @@ async def endvote(ctx):
 #Конец группы vote_commands
 
 #Начало группы vote_event_commands
+message_id = 0 # Переменная для сообщения голосования
 
+@Bot.command(pass_context=True)
+@commands.has_permissions(administrator=True)
+async def starteventvote(ctx, content):
+    channel = ctx.channel
+    emb = discord.Embed(title=f'Голосование за ивент.', description='Ивент: ' + str(content),
+                                  colour=discord.Color.purple())
+    message = await ctx.send(embed=emb)
+    await message.add_reaction('✅')
+    await message.add_reaction('❌')
+    global message_id # Если используется класс, то необходимо создать в классе переменную
+    message_id = message.id # Сохраняем id сообщения для голосования
+
+@Bot.command(pass_context=True)
+@commands.has_permissions(administrator=True)
+async def endeventvote(ctx):
+    channel = ctx.channel
+    message = await channel.fetch_message(message_id) # Ищем сообщение
+    # Фильтруем реакции, чтобы остались только нужные
+    resactions = [reaction for reaction in message.reactions if reaction.emoji in ['✅', '❌']]
+    # Превращаем результат голосования в строку (вычитаем 1 из количества, значение по умолчанию)
+    result = ''
+    for reaction in resactions:
+        result += reaction.emoji + ": " + str(reaction.count - 1)
+    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
+                                  colour=discord.Color.purple())
 #Конец группы vote_event_commands
 Bot.run(config.TOKEN)
