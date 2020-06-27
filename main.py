@@ -39,11 +39,9 @@ async def on_ready():
 
 
 #Начало endvote
-client = commands.Bot(command_prefix='!')
-
 message_id = 0 # Переменная для сообщения голосования
 
-@client.command(pass_context=True)
+@Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def startvote(ctx, content):
     channel = ctx.channel
@@ -55,7 +53,7 @@ async def startvote(ctx, content):
     global message_id # Если используется класс, то необходимо создать в классе переменную
     message_id = message.id # Сохраняем id сообщения для голосования
 
-@client.command(pass_context=True)
+@Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
     channel = ctx.channel
@@ -70,10 +68,4 @@ async def endvote(ctx):
                                   colour=discord.Color.purple())
     await ctx.send(embed=emb)
 #Конец endvote
-
-#Команда debug
-@Bot.command
-async def debug(ctx):
-    emb = discord.Embed(title=f'Окно debug.', description='Список переменных дебага:', Y = y)
-    return await ctx.send(embed=emb) # **Возвращаем** сообщение после отправки.
 Bot.run(config.TOKEN)
