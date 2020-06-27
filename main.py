@@ -38,7 +38,7 @@ async def on_ready():
 #Конец startvote
 
 
-#Начало endvote
+#Начало группы vote_commands
 message_id = 0 # Переменная для сообщения голосования
 
 @Bot.command(pass_context=True)
@@ -67,5 +67,9 @@ async def endvote(ctx):
     emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
                                   colour=discord.Color.purple())
     await ctx.send(embed=emb)
-#Конец endvote
+#Конец группы vote_commands
+
+#Начало группы vote_event_commands
+
+#Конец группы vote_event_commands
 Bot.run(config.TOKEN)
