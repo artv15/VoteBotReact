@@ -51,6 +51,12 @@ async def startvote(ctx, arg):
             y += 1
         elif i == '❌'
             n += 1
+    if y > n:
+        result = 'Принято.'; print('>>Voting accepted.')
+    elif y = n:
+        result = 'Голоса одинаковы. На усмотрение администратора.'; print('>>Votes are equal. Admin must decide.')
+    elif y < n:
+        result = 'Отказано.'; print('>>Voting refused.')
 #Конец startvote
 
 
