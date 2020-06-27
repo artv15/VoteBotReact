@@ -24,17 +24,17 @@ async def on_ready():
 #Сепаратор------------------------------------------
 
 #Команда startvote
-@Bot.command()
-@commands.has_permissions(administrator=True)
-async def startvote(ctx, arg):
-    emb = discord.Embed(title=f'Начато голосование',
-                        description='Голосуем за: ' + str(arg) + '\n' + 'Голосование кончается через 30 секунд',
-                        colour=discord.Color.purple())
-
-    message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
-    await message.add_reaction('✅')
-    await message.add_reaction('❌')
-    print('>>Sent message about voting. Voting for: ' + str(arg))
+#@Bot.command()
+#@commands.has_permissions(administrator=True)
+#async def startvote(ctx, arg):
+#    emb = discord.Embed(title=f'Начато голосование',
+#                        description='Голосуем за: ' + str(arg) + '\n' + 'Голосование кончается через 30 секунд',
+#                        colour=discord.Color.purple())
+#
+#    message = await ctx.send(embed=emb) # Возвращаем сообщение после отправки
+#    await message.add_reaction('✅')
+#    await message.add_reaction('❌')
+#    print('>>Sent message about voting. Voting for: ' + str(arg))
 #Конец startvote
 
 
