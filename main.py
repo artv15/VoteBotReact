@@ -35,33 +35,40 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     print('>>Sent message about voting. Voting for: ' + str(arg))
-    @Bot.event()
-    @Bot.on_reaction_add()
-    emojis = message.get_all_emojis()
-    for i in emojis:
-        if i == '✅':
-            y += 1
-        elif i == '❌'
-            n += 1
-    @Bot.event()
-    @Bot.on_reaction_remove()
-    emojis = message.get_all_emojis()
-    for i in emojis:
-        if i == '✅':
-            y += 1
-        elif i == '❌'
-            n += 1
-    if y > n:
-        result = 'Принято.'; print('>>Voting accepted.')
-    elif y = n:
-        result = 'Голоса одинаковы. На усмотрение администратора.'; print('>>Votes are equal. Admin must decide.')
-    elif y < n:
-        result = 'Отказано.'; print('>>Voting refused.')
 #Конец startvote
 
 
 #Начало endvote
+client = commands.Bot(command_prefix='!')
 
+message_id = 0 # Переменная для сообщения голосования
+
+@client.command(pass_context=True)
+@commands.has_permissions(administrator=True)
+async def startvote(ctx, content):
+    channel = ctx.channel
+    emb = discord.Embed(title=f'Голосование.', description='Голосуем за ' + str(content),
+                                  colour=discord.Color.purple())
+    message = await ctx.send(embed=emb)
+    await message.add_reaction('✅')
+    await message.add_reaction('❌')
+    global message_id # Если используется класс, то необходимо создать в классе переменную
+    message_id = message.id # Сохраняем id сообщения для голосования
+
+@client.command(pass_context=True)
+@commands.has_permissions(administrator=True)
+async def endvote(ctx):
+    channel = ctx.channel
+    message = await channel.fetch_message(message_id) # Ищем сообщение
+    # Фильтруем реакции, чтобы остались только нужные
+    resactions = [reaction for reaction in message.reactions if reaction.emoji in ['✅', '❌']]
+    # Превращаем результат голосования в строку (вычитаем 1 из количества, значение по умолчанию)
+    result = ''
+    for reaction in resactions:
+        result += reaction.emoji + ": " + str(reaction.count - 1)
+    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
+                                  colour=discord.Color.purple())
+    await ctx.send(embed=emb)
 #Конец endvote
 
 #Команда debug
