@@ -6,6 +6,11 @@ from discord.ext.commands import Bot
 import config
 import time
 #Конец зоны import
+I_WAS_TESTING = 0
+global n
+global y
+n = 0
+y = 0
 result = "?"
 msgsent = ''
 #Объявления префикса
@@ -30,22 +35,22 @@ async def startvote(ctx, arg):
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     print('>>Sent message about voting. Voting for: ' + str(arg))
-
-
 #Конец startvote
+
 
 #Начало endvote
 @Bot.command  # № 4
 @commands.has_permissions(administrator=True)
 @Bot.event
+
 async def on_raw_reaction_add(payload):  # №2
-    global n
-    global y
-    y=0
-    n=0
     channel = Bot.get_channel(payload.channel_id) # получаем объект канала
     message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
     emoji = payload.emoji
+    if I_WAS_TESTING == 0:
+        y = 0
+        n = 0
+        I_WAS_TESTING = 1
     if emoji == "\N{WHITE HEAVY CHECK MARK}":
         y += 1
     elif emoji == "\N{CROSS MARK}":
@@ -54,13 +59,13 @@ async def on_raw_reaction_add(payload):  # №2
 
 @Bot.event  # № 1
 async def on_raw_reaction_remove(payload):  # №2
-    global n
-    global y
-    y=0
-    n=0
     channel = Bot.get_channel(payload.channel_id) # получаем объект канала
     message = await channel.fetch_message(payload.message_id) # получаем объект сообщения
     emoji = payload.emoji # реакция пользователя
+    if I_WAS_TESTING == 0:
+        y = 0
+        n = 0
+        I_WAS_TESTING = 1
     if emoji == "\N{WHITE HEAVY CHECK MARK}":
         y -= 1
     elif emoji == "\N{CROSS MARK}":
