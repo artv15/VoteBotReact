@@ -4,15 +4,8 @@ from discord import utils
 from discord.ext import commands
 from discord.ext.commands import Bot
 import config
-import time
 #Конец зоны import
-I_WAS_TESTING = 0
-global n
-global y
-n = 0
-y = 0
 result = "?"
-msgsent = ''
 #Объявления префикса
 Bot = commands.Bot(command_prefix= '!')
 #Префикс объявлен
@@ -65,7 +58,15 @@ async def endvote(ctx):
     result = ''
     for reaction in resactions:
         result += reaction.emoji + ": " + str(reaction.count - 1)
-    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
+    FinalResultY = result[3]
+    FinalResultN = result[7]
+    if FinalResultY > FinalResultN:
+        Final = 'Принято'
+    elif FinalResultY == FinalResultN:
+        Final = 'Голоса равны. Решение за организатором голосования.'
+    elif FinalResultY < FinalResultN:
+        Final = 'Отказано.'
+    emb = discord.Embed(title=f'Результат.', description='Голоса: ' + str(result), Итог= Final
                                   colour=discord.Color.purple())
     print('>>Voting finished. Result: ' + str(result))
     await ctx.send(embed=emb)
@@ -98,7 +99,16 @@ async def endeventvote(ctx):
     result = ''
     for reaction in resactions:
         result += reaction.emoji + ": " + str(reaction.count - 1)
-    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
+    #Посчёт результата(Принято/Отказано)
+    FinalResultY = result[3]
+    FinalResultN = result[7]
+    if FinalResultY > FinalResultN:
+        Final = 'Принято'
+    elif FinalResultY == FinalResultN:
+        Final = 'Голоса равны. Решение за организатором голосования.'
+    elif FinalResultY < FinalResultN:
+        Final = 'Отказано.'
+    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result), Итог= str(Final)
                                   colour=discord.Color.purple())
     print('>>Voting for event finished. Result: ' + str(result))
     await ctx.send(embed=emb)
