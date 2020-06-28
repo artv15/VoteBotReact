@@ -66,8 +66,9 @@ async def endvote(ctx):
         Final = 'Голоса равны. Решение за организатором голосования.'
     elif FinalResultY < FinalResultN:
         Final = 'Отказано.'
-    emb = discord.Embed(title=f'Результат.', description='Голоса: ' + str(result), Итог= str(Final),
+    emb = discord.Embed(title=f'Результат.', description='Голоса: ' + str(result),
                                   colour=discord.Color.purple())
+    emb.add_field(name="Итог: ", value=Final, inline=True)
     print('>>Voting finished. Result: ' + str(result))
     await ctx.send(embed=emb)
 #Конец группы vote_commands
@@ -108,8 +109,9 @@ async def endeventvote(ctx):
         Final = 'Голоса равны. Решение за организатором голосования.'
     elif FinalResultY < FinalResultN:
         Final = 'Отказано.'
-    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result), Итог= str(Final),
+    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
                                   colour=discord.Color.purple())
+    emb.add_field(name="Итог: ", value=Final, inline=True)
     print('>>Voting for event finished. Result: ' + str(result))
     await ctx.send(embed=emb)
 #Конец группы vote_event_commands
