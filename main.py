@@ -45,10 +45,11 @@ message_id = 0 # Переменная для сообщения голосова
 @commands.has_permissions(administrator=True)
 async def startvote(ctx, content):
     #channel = ctx.channel
-    emb = discord.Embed(title=f'Голосование.', description='Голосуем за ' + str(content),
+    emb = discord.Embed(title=f'Голосование начато.', description='Голосуем за: ' + str(content).lower,
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
-    print('>>Started voting. Voting agout: ' + str(content))
+    author = message.get_author()
+    print('>>Started voting by ' + author + '. Voting about: ' + str(content))
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     global message_id # Если используется класс, то необходимо создать в классе переменную
@@ -78,10 +79,11 @@ message_id = 0 # Переменная для сообщения голосова
 @commands.has_permissions(administrator=True)
 async def starteventvote(ctx, content):
     #channel = ctx.channel
-    emb = discord.Embed(title=f'Голосование за ивент.', description='Ивент: ' + str(content),
+    emb = discord.Embed(title=f'Голосование за ивент.', description='Ивент: ' + str(content).lower,
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
-    print('>>Voting for event started. Voting for: ' + str(content))
+    author = message.get_author()
+    print('>>Voting for event started by ' + author + '. Voting for: ' + str(content))
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     global message_id # Если используется класс, то необходимо создать в классе переменную
