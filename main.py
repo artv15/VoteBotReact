@@ -48,7 +48,6 @@ async def startvote(ctx, content):
     emb = discord.Embed(title=f'Голосование начато.', description='Голосуем за: ' + str(content),
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
-    author = message.get_author()
     print('>>Started voting. Voting about: ' + str(content))
     await message.add_reaction('✅')
     await message.add_reaction('❌')
