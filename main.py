@@ -66,7 +66,7 @@ async def endvote(ctx):
         Final = 'Голоса равны. Решение за организатором голосования.'
     elif FinalResultY < FinalResultN:
         Final = 'Отказано.'
-    emb = discord.Embed(title=f'Результат.', description='Голоса: ' + str(result), Итог= Final
+    emb = discord.Embed(title=f'Результат.', description='Голоса: ' + str(result), Итог= str(Final),
                                   colour=discord.Color.purple())
     print('>>Voting finished. Result: ' + str(result))
     await ctx.send(embed=emb)
@@ -108,7 +108,7 @@ async def endeventvote(ctx):
         Final = 'Голоса равны. Решение за организатором голосования.'
     elif FinalResultY < FinalResultN:
         Final = 'Отказано.'
-    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result), Итог= str(Final)
+    emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result), Итог= str(Final),
                                   colour=discord.Color.purple())
     print('>>Voting for event finished. Result: ' + str(result))
     await ctx.send(embed=emb)
