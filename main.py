@@ -45,7 +45,7 @@ message_id = 0 # Переменная для сообщения голосова
 @commands.has_permissions(administrator=True)
 async def startvote(ctx, content):
     #channel = ctx.channel
-    emb = discord.Embed(title=f'Голосование начато.', description='Голосуем за: ' + str(content).lower,
+    emb = discord.Embed(title=f'Голосование начато.', description='Голосуем за: ' + str(content),
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
     author = message.get_author()
@@ -79,7 +79,7 @@ message_id = 0 # Переменная для сообщения голосова
 @commands.has_permissions(administrator=True)
 async def starteventvote(ctx, content):
     #channel = ctx.channel
-    emb = discord.Embed(title=f'Голосование за ивент.', description='Ивент: ' + str(content).lower,
+    emb = discord.Embed(title=f'Голосование за ивент.', description='Ивент: ' + str(content),
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
     print('>>Voting for event started. Voting for: ' + str(content))
