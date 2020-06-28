@@ -49,7 +49,7 @@ async def startvote(ctx, content):
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
     author = message.get_author()
-    print('>>Started voting by ' + author + '. Voting about: ' + str(content))
+    print('>>Started voting. Voting about: ' + str(content))
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     global message_id # Если используется класс, то необходимо создать в классе переменную
@@ -82,8 +82,7 @@ async def starteventvote(ctx, content):
     emb = discord.Embed(title=f'Голосование за ивент.', description='Ивент: ' + str(content).lower,
                                   colour=discord.Color.purple())
     message = await ctx.send(embed=emb)
-    author = message.get_author()
-    print('>>Voting for event started by ' + author + '. Voting for: ' + str(content))
+    print('>>Voting for event started. Voting for: ' + str(content))
     await message.add_reaction('✅')
     await message.add_reaction('❌')
     global message_id # Если используется класс, то необходимо создать в классе переменную
