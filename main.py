@@ -124,8 +124,8 @@ async def endeventvote(ctx):
 async def debug(ctx, passwd):
     if passwd == 'async/def':
         emb = discord.Embed(title=f'Debug menu opened.', description='Here shown all vars, which are required in DeBug.', colour=0x00ff08)
-        emb.add_field(name='Information', value='There are [value] vars to debug!')
-        emb.add_field(name='message_id', value=message_id)
+        emb.add_field(name='Information', value='There are 0 vars to debug!')
+        emb.add_field(name='var', value='null')
         emb.add_field(name='Attention! If you can see debug menu, without running !debug with using valid passwd, then do not save any of this data. Thank you for attention(now get out)')
         await ctx.send(embed=emb)
     else:
