@@ -69,7 +69,7 @@ async def endvote(ctx):
     emb = discord.Embed(title=f'Результат.', description='Голоса: ' + str(result),
                                   colour=discord.Color.purple())
     emb.add_field(name="Итог: ", value=Final, inline=True)
-    print('>>Voting finished. Result: ' + str(result))
+    print('>>Voting finished. Result: ' + str(result) + ' Final result: ' + Final)
     await ctx.send(embed=emb)
 #Конец группы vote_commands
 
@@ -112,7 +112,22 @@ async def endeventvote(ctx):
     emb = discord.Embed(title=f'Результат.', description='Итог голосования: ' + str(result),
                                   colour=discord.Color.purple())
     emb.add_field(name="Итог: ", value=Final, inline=True)
-    print('>>Voting for event finished. Result: ' + str(result))
+    print('>>Voting for event finished. Result: ' + str(result) + ' Final result: ' + Final)
     await ctx.send(embed=emb)
 #Конец группы vote_event_commands
+
+
+
+#Начало группы Debug
+@Bot.command(pass_context=True)
+@commands.has_permissions(administrator=True)
+async def debug(ctx, passwd):
+    if passwd == 'async def':
+        emb = discord.Embed(title=f'Debug menu opened.', description='Here shown all vars, which are required in DeBug.', colour=discord.Color.purple())
+        emb.add_field(name='Information', value='No vars are required to debug')
+        await ctx.send(embed=emb)
+    else:
+        emb = discord.Embed(title=f'Incorrect password received.', description='Access denied.', colour=discord.Color.purple())
+        await ctx.send(embed=emb)
+#Конец группы Debug
 Bot.run(config.TOKEN)
