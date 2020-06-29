@@ -122,7 +122,7 @@ async def endeventvote(ctx):
 @Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def debug(ctx, passwd):
-    if passwd == 'async def':
+    if passwd == 'async/def':
         emb = discord.Embed(title=f'Debug menu opened.', description='Here shown all vars, which are required in DeBug.', colour=discord.Color.purple())
         emb.add_field(name='Information', value='No vars are required to debug')
         await ctx.send(embed=emb)
