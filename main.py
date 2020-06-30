@@ -136,8 +136,8 @@ print('>>Password for debug created. Password: ' + pass_key)
 async def debug(ctx, passwd):
     if passwd == pass_key:
         emb = discord.Embed(title=f'Debug menu opened.', description='Here shown all vars, which are required in DeBug.', colour=0x00ff08)
-        emb.add_field(name='Information', value='There are 0 vars to debug!')
-        emb.add_field(name='var', value='null')
+        emb.add_field(name='Information', value='There are 1 vars to debug!')
+        emb.add_field(name='Var: pass_key', value=pass_key)
         emb.add_field(name='Attention!', value='If you can see debug menu, without running !debug with using valid passwd, then do not save any of this data. Thank you for attention(now get out)')
         await ctx.send(embed=emb)
         pass_key = buildblock(8)
