@@ -144,4 +144,14 @@ async def debug(ctx, passwd):
         emb = discord.Embed(title=f'Incorrect password received.', description='Access denied.', colour=0xff0000)
         await ctx.send(embed=emb)
 #Конец группы Debug
+
+
+#Начало команды shout
+@Bot.command(pass_context=True)
+@commands.has_permissions(administrator=True)
+async def shout(ctx, content):
+    emb = discord.Embed(title=f'Крик админа!', description=str(content), 
+    color=discord.Color.purple())
+    await ctx.send(embed=emb)
+#Конец команды shout
 Bot.run(config.TOKEN)
