@@ -140,8 +140,11 @@ async def debug(ctx, passwd):
         emb.add_field(name='var', value='null')
         emb.add_field(name='Attention!', value='If you can see debug menu, without running !debug with using valid passwd, then do not save any of this data. Thank you for attention(now get out)')
         await ctx.send(embed=emb)
+        pass_key = buildblock(8)
+        print('>>Password for debug regenerated. Password: ' + pass_key)
     else:
         emb = discord.Embed(title=f'Incorrect password received.', description='Access denied.', colour=0xff0000)
+        print('>>If you are trying to use debug menu, use this password: ' + pass_key)
         await ctx.send(embed=emb)
 #Конец группы Debug
 
