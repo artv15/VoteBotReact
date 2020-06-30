@@ -7,9 +7,14 @@ import config
 import random
 import string
 #Конец зоны import
+
+#Объявление функций
+def buildblock(size):
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(size))
+#Конец объявления функций
+
 #Объявление глобальных переменных
-pass_key = buildblock(8)
-print('>>Password for debug created. Password: ' + pass_key)
+
 #Переменные объявлены
 result = "?"
 #Объявления префикса
@@ -128,6 +133,8 @@ async def endeventvote(ctx):
 @Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def debug(ctx, passwd):
+    pass_key = buildblock(8)
+    print('>>Password for debug created. Password: ' + pass_key)
     if passwd == pass_key:
         emb = discord.Embed(title=f'Debug menu opened.', description='Here shown all vars, which are required in DeBug.', colour=0x00ff08)
         emb.add_field(name='Information', value='There are 0 vars to debug!')
@@ -137,10 +144,5 @@ async def debug(ctx, passwd):
     else:
         emb = discord.Embed(title=f'Incorrect password received.', description='Access denied.', colour=0xff0000)
         await ctx.send(embed=emb)
-
-    def buildblock(size):
-        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(size))
-    pass_key = buildblock(8)
-    print('Password for debug regenerated. Please, use this password: ' + pass_key)
 #Конец группы Debug
 Bot.run(config.TOKEN)
