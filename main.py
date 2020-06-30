@@ -127,9 +127,6 @@ async def endeventvote(ctx):
     await ctx.send(embed=emb)
 #Конец группы vote_event_commands
 
-pass_key = buildblock(8)
-print('>>Password for debug created. Password: ' + pass_key)
-
 #Начало группы Debug
 @Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
@@ -158,3 +155,5 @@ async def shout(ctx, content):
     await ctx.send(embed=emb)
 #Конец команды shout
 Bot.run(config.TOKEN)
+pass_key = buildblock(8)
+print('>>Password for debug created. Password: ' + pass_key)
