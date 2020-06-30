@@ -130,19 +130,10 @@ async def endeventvote(ctx):
 #Начало группы Debug
 @Bot.command(pass_context=True)
 @commands.has_permissions(administrator=True)
-async def debug(ctx, passwd):
-    if passwd == pass_key:
-        emb = discord.Embed(title=f'Debug menu opened.', description='Here shown all vars, which are required in DeBug.', colour=0x00ff08)
-        emb.add_field(name='Information', value='There are 1 vars to debug!')
-        emb.add_field(name='Var: pass_key', value='Can not receive var. Reason: local variable `pass_key` referenced before assignment')
-        emb.add_field(name='Attention!', value='If you can see debug menu, without running !debug with using valid passwd, then do not save any of this data. Thank you for attention(now get out)')
-        await ctx.send(embed=emb)
-        pass_key = buildblock(8)
-        print('>>Password for debug regenerated. Password: ' + pass_key)
-    else:
-        emb = discord.Embed(title=f'Incorrect password received.', description='Access denied.', colour=0xff0000)
-        print('>>If you are trying to use debug menu, use this password: ' + pass_key)
-        await ctx.send(embed=emb)
+async def debug(ctx):
+    emb=discord.Embed(title=f'Attention!', description='Debug menu was deleted cause of not working as was programmed. Now really get out.',
+                                  colour=discord.Color.purple())
+    await ctx.send(embed=emb)
 #Конец группы Debug
 
 
