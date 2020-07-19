@@ -6,6 +6,7 @@ from discord.ext.commands import Bot
 import config
 import random
 import string
+import time
 #Конец зоны import
 
 #Объявление функций
@@ -62,6 +63,9 @@ async def startvote(ctx, content):
 @commands.has_permissions(administrator=True)
 async def endvote(ctx):
     channel = ctx.channel
+    emb = discord.Embed(title=f'До конца голосования осталось 10 секунд!', description='Успей отдать свой голос!')
+    await ctx.send(embed=emb)
+    time.sleep(10)
     message = await channel.fetch_message(message_id) # Ищем сообщение
     # Фильтруем реакции, чтобы остались только нужные
     resactions = [reaction for reaction in message.reactions if reaction.emoji in ['✅', '❌']]
